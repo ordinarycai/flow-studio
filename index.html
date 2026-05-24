@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>流程图绘制器</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="流程图列表">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" role="img">
+              <rect x="3.5" y="5" width="11" height="8" rx="2"></rect>
+              <rect x="17.5" y="19" width="11" height="8" rx="2"></rect>
+              <path d="M14.8 9h5.2c2.6 0 4.7 2.1 4.7 4.7V18"></path>
+              <path d="M21.9 15.6 24.7 18l2.8-2.4"></path>
+            </svg>
+          </div>
+          <div>
+            <h1>Flow Studio</h1>
+            <p id="diagramCount">0 个流程图</p>
+          </div>
+        </div>
+        <button class="primary-action" id="newDiagramBtn" type="button">
+          <span class="icon" aria-hidden="true">+</span>
+          <span>新建流程图</span>
+        </button>
+        <div class="diagram-list" id="diagramList"></div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div class="title-edit">
+            <input id="diagramTitle" aria-label="流程图名称" maxlength="40" />
+          </div>
+          <div class="toolbar" aria-label="工具栏">
+            <button class="tool-button" id="addNodeBtn" type="button" title="创建方框" aria-label="创建方框">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="4" y="6" width="16" height="12" rx="2"></rect>
+                <path d="M12 9v6M9 12h6"></path>
+              </svg>
+            </button>
+            <button class="tool-button" id="connectBtn" type="button" title="连接方框" aria-label="连接方框">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h13"></path>
+                <path d="m14 7 5 5-5 5"></path>
+                <rect x="3" y="8" width="4" height="8" rx="1"></rect>
+              </svg>
+            </button>
+            <button class="tool-button" id="deleteBtn" type="button" title="删除选中项" aria-label="删除选中项">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 7h16M9 7V5h6v2M7 7l1 13h8l1-13"></path>
+              </svg>
+            </button>
+            <button class="tool-button" id="zoomOutBtn" type="button" title="缩小背景和方框" aria-label="缩小背景和方框">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14"></path>
+              </svg>
+            </button>
+            <span class="zoom-readout" id="zoomReadout">100%</span>
+            <button class="tool-button" id="zoomInBtn" type="button" title="放大背景和方框" aria-label="放大背景和方框">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 5v14M5 12h14"></path>
+              </svg>
+            </button>
+            <button class="tool-button" id="resetViewBtn" type="button" title="重置视图" aria-label="重置视图">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 4v6h6M20 20v-6h-6M20 9a7 7 0 0 0-12.1-4.8L4 10M4 15a7 7 0 0 0 12.1 4.8L20 14"></path>
+              </svg>
+            </button>
+            <span class="divider"></span>
+            <button class="text-button" id="saveBtn" type="button">保存</button>
+            <button class="text-button" id="exportJsonBtn" type="button">导出 JSON</button>
+            <button class="text-button" id="exportSvgBtn" type="button">导出 SVG</button>
+          </div>
+        </header>
+
+        <section class="canvas-wrap" aria-label="流程图画布">
+          <svg class="connections" id="connectionsSvg" aria-hidden="true">
+            <defs>
+              <marker id="arrowHead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z"></path>
+              </marker>
+            </defs>
+            <g id="edgesLayer"></g>
+          </svg>
+          <div class="canvas" id="canvas"></div>
+          <div class="status-pill" id="statusPill">就绪</div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
